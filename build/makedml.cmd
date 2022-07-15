@@ -48,7 +48,8 @@ for /D %%i in ("%~dpnx1\*") do (
 		if exist "%~dpnx2\!file!" (
 			echo. >> "%~dpnx2\!file!"
 		)
-			type "%%i\!file!" >> "%~dpnx2\!file!"
+		
+		type "%%i\!file!" >> "%~dpnx2\!file!"
 		endlocal
 	)
 )
@@ -97,7 +98,11 @@ for /D %%i in ("%~dpnx1\*") do (
 			echo Writing file "%~dpnx2\%%~ni\!file!"
 				
 			md "%~dpnx2\%%~ni\!file!\.." 2>NUL
-			echo. >> "%~dpnx2\%%~ni\!file!"
+			
+			if exist "%~dpnx2\%%~ni\!file!" (
+				echo. >> "%~dpnx2\%%~ni\!file!"
+			)
+			
 			type "%%i\!file!" >> "%~dpnx2\%%~ni\!file!"
 			endlocal
 		)
