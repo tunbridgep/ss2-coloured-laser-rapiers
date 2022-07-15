@@ -2,88 +2,38 @@ In some cases, some rapier colours may be undesirable. A classic example is that
 
 In order to do this, the squirrel script will need to be edited. The edit is quite simple and should only require a few lines of changes.
 
-If you simply wish to disable black and white rapiers, the change is very simple, just follow these steps:
+The top of the squirrel file contains a table like this:
 
-1. Open up sq_scripts/sargeLaserRapiers.nut in a text editor
-2. Find the line which says "local colour = Data.RandInt(0, 7);". In future versions this line may contain slightly different numbers.
-3. Subtract 2 from the final number, so "local colour = Data.RandInt(0, 7);" would become "local colour = Data.RandInt(0, 5);"
-4. Save the file.
-
-This should permanently disable black and white rapiers. Please note that already existing black and white rapiers won't be changed.
-
-To disable a specific rapier or a set of rapiers requires more changes. Each rapier type is defined in a block, like so:
-
-else if (colour == 5) //yellow
-{
-	SetupSword(150,0.20,0.6);
-	SetupSwordModel("rapier_w_ye","rapier_h_ye","icn_es_ye");
-}
-
-In order to remove a specific rapier, it's block will need to be deleted, then all other blocks need to be updated to make sure the colour numbers match.
-
-For instance, if removing Yellow, the final set of blocks will need to be changed from:
-
-else if (colour == 4) //orange
-{
-	SetupSword(150,0.05,0.6);
-	SetupSwordModel("rapier_w_or","rapier_h_or","icn_es_or");
-}
-else if (colour == 5) //yellow
-{
-	SetupSword(150,0.20,0.6);
-	SetupSwordModel("rapier_w_ye","rapier_h_ye","icn_es_ye");
-}
-else if (colour == 6) //white
-{
-	SetupSword(150,0.0,0.0);
-	SetupSwordModel("rapier_w_wh","rapier_h_wh","icn_es_wh");
-}
-
-to:
-
-else if (colour == 4) //orange
-{
-	SetupSword(150,0.05,0.6);
-	SetupSwordModel("rapier_w_or","rapier_h_or","icn_es_or");
-}
-else if (colour == 5) //white
-{
-	SetupSword(150,0.0,0.0);
-	SetupSwordModel("rapier_w_wh","rapier_h_wh","icn_es_wh");
-}
-
-(note how the colour value has been changed on the "else if" line)
-
-Once the desired blocks have been removed, ensure the following are all correct:
-
-1. Each block's "if" or "else if" line should have a numerical sequence. So if the first block contains "if (colour == 0)", the next one must be "else if (colour == 1)", etc.
-2. The number of the first block must be 0
-3. Please ensure ALL blocks start and end with { and } immediately after the if or elseif statement. Accidentally removing a { or } will prevent the script from working at all.
-
-Then, the following line needs to be updated:
-
-local colour = Data.RandInt(0, 7);
-
-The 7 should be changed to the total number of blocks, which is the number of the highest numbered block plus 1. Keep in mind that the else block which handles black must also be counted. For instance, if the final blocks look like this:
-
-else if (colour == 4) //white
-{
-	SetupSword(150,0.0,0.0);
-	SetupSwordModel("rapier_w_wh","rapier_h_wh","icn_es_wh");
-}
-else //black
-{
-	//Remove Lighting
-	SetProperty("SelfLit",0);
-	SetProperty("LightColor",0);
+static swords = [
+		
+		//colour,		[distance, hue, saturation],	[world model, hand model, icon]
+		//---------------------------------------------------------------------------------------------------------------------------
+		["blue",		[150,0.66,0.80],				false										],
+		["red",			[150,0.98,0.90],				["rapier_w_rd","rapier_h_rd","icn_es_rd"]	],
+		["green",		[150,0.40,0.90],				["rapier_w_gr","rapier_h_gr","icn_es_gr"]	],
+		["purple",		[150,0.80,0.60],				["rapier_w_pu","rapier_h_pu","icn_es_pu"]	],
+		["orange",		[150,0.05,0.60],				["rapier_w_or","rapier_h_or","icn_es_or"]	],
+		["yellow",		[150,0.20,0.60],				["rapier_w_ye","rapier_h_ye","icn_es_ye"]	],
+		["white",		[150,0.00,0.00],				["rapier_w_wh","rapier_h_wh","icn_es_wh"]	],
+		["black",		false,							["rapier_w_bl","rapier_h_bl","icn_es_bl"]	],
+	];
 	
-	SetupSwordModel("rapier_w_bl","rapier_h_bl","icn_es_bl");
-}
+In order to remove a specific rapier, simply delete the line associated with it
 
-Then the number should be updated to 5, not 4.
+Alternatively, if you wish to only disable a specific rapier, adding // to the beginning of it's line will prevent it from spawning.
 
-So the line would be updated to this:
+For example, to disable orange rapiers, do this:
 
-local colour = Data.RandInt(0, 5);
-
-If the else block was removed, then you should instead use the number of the highest numbered block without adding 1.
+static swords = [
+		
+		//colour,		[distance, hue, saturation],	[world model, hand model, icon]
+		//---------------------------------------------------------------------------------------------------------------------------
+		["blue",		[150,0.66,0.80],				false										],
+		["red",			[150,0.98,0.90],				["rapier_w_rd","rapier_h_rd","icn_es_rd"]	],
+		["green",		[150,0.40,0.90],				["rapier_w_gr","rapier_h_gr","icn_es_gr"]	],
+		["purple",		[150,0.80,0.60],				["rapier_w_pu","rapier_h_pu","icn_es_pu"]	],
+		//["orange",		[150,0.05,0.60],				["rapier_w_or","rapier_h_or","icn_es_or"]	],
+		["yellow",		[150,0.20,0.60],				["rapier_w_ye","rapier_h_ye","icn_es_ye"]	],
+		["white",		[150,0.00,0.00],				["rapier_w_wh","rapier_h_wh","icn_es_wh"]	],
+		["black",		false,							["rapier_w_bl","rapier_h_bl","icn_es_bl"]	],
+	];

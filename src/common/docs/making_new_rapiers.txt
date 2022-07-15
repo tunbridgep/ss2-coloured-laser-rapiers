@@ -11,78 +11,39 @@ Follow these steps to make a new rapier. For this example, we will make an aquam
 6. Open up the new RAPIER_W_AQ.BIN file you created in a text editor
 4. Replace all instances of RED1.PCX with AQA1.PCX, and all instances of RED2.PCX with AQA2.PCX. It is critically important that NO other parts of the file be edited. Changing even a single character will corrupt the model
 5. Create a new file Icn_es_aq.pcx inside the ObjIcon folder, based on one of the existing files.
-6. Open up sq_scripts/sargeLaserRapiers.nut
-7. Find the colour set line. It should look similar to "local colour = Data.RandInt(0, 7);". Add 1 to the final digit, so it should now be "local colour = Data.RandInt(0, 8);" or similar.
-8. Add a new block for the new colour. Find the last colour block before the else block. It should look something like this (the colour may be different and the number may be higher):
+6. Open up sq_scripts/sargeLaserRapiers.nut and add the rapier to the table at the top. The table looks like this:
 
-else if (colour == 6) //white
-{
-	SetupSword(150,0.0,0.0);
-	SetupSwordModel("rapier_w_wh","rapier_h_wh","icn_es_wh");
-}
+static swords = [
+		
+		//colour,		[distance, hue, saturation],	[world model, hand model, icon]
+		//---------------------------------------------------------------------------------------------------------------------------
+		["blue",		[150,0.66,0.80],				false										],
+		["red",			[150,0.98,0.90],				["rapier_w_rd","rapier_h_rd","icn_es_rd"]	],
+		["green",		[150,0.40,0.90],				["rapier_w_gr","rapier_h_gr","icn_es_gr"]	],
+		["purple",		[150,0.80,0.60],				["rapier_w_pu","rapier_h_pu","icn_es_pu"]	],
+		["orange",		[150,0.05,0.60],				["rapier_w_or","rapier_h_or","icn_es_or"]	],
+		["yellow",		[150,0.20,0.60],				["rapier_w_ye","rapier_h_ye","icn_es_ye"]	],
+		["white",		[150,0.00,0.00],				["rapier_w_wh","rapier_h_wh","icn_es_wh"]	],
+		["black",		false,							["rapier_w_bl","rapier_h_bl","icn_es_bl"]	],
+	];
+	
+To add a new rapier colour, add it to the table, for example
 
-Duplicate that block immediately below it, so it should look like this
+static swords = [
+		
+		//colour,		[distance, hue, saturation],	[world model, hand model, icon]
+		//---------------------------------------------------------------------------------------------------------------------------
+		["blue",		[150,0.66,0.80],				false										],
+		["red",			[150,0.98,0.90],				["rapier_w_rd","rapier_h_rd","icn_es_rd"]	],
+		["green",		[150,0.40,0.90],				["rapier_w_gr","rapier_h_gr","icn_es_gr"]	],
+		["purple",		[150,0.80,0.60],				["rapier_w_pu","rapier_h_pu","icn_es_pu"]	],
+		["orange",		[150,0.05,0.60],				["rapier_w_or","rapier_h_or","icn_es_or"]	],
+		["yellow",		[150,0.20,0.60],				["rapier_w_ye","rapier_h_ye","icn_es_ye"]	],
+		["white",		[150,0.00,0.00],				["rapier_w_wh","rapier_h_wh","icn_es_wh"]	],
+		["black",		false,							["rapier_w_bl","rapier_h_bl","icn_es_bl"]	],
+		["aquamarine",	[150,0.55,0.70],				["rapier_w_aq","rapier_h_aq","icn_es_aq"]	],
+	];
 
-else if (colour == 6) //white
-{
-	SetupSword(150,0.0,0.0);
-	SetupSwordModel("rapier_w_wh","rapier_h_wh","icn_es_wh");
-}
-else if (colour == 6) //white
-{
-	SetupSword(150,0.0,0.0);
-	SetupSwordModel("rapier_w_wh","rapier_h_wh","icn_es_wh");
-}
+The new rapier should now be available to all future rapier spawns.
 
-Then, change the index number from 6 to 7 (or, if another number, one higher than the existing number), and edit the comment on the same line:
-
-else if (colour == 6) //white
-{
-	SetupSword(150,0.0,0.0);
-	SetupSwordModel("rapier_w_wh","rapier_h_wh","icn_es_wh");
-}
-else if (colour == 7) //aquamarine
-{
-	SetupSword(150,0.0,0.0);
-	SetupSwordModel("rapier_w_wh","rapier_h_wh","icn_es_wh");
-}
-
-Then, replace the last 2 numbers on the SetupSword line with custom hue and saturation values. For example, in the case of Red, the line would change from
-
-SetupSword(150,0.0,0.0);
-
-to
-
-SetupSword(150,0.98,0.9);
-
-The first number (150) should generally not be touched unless you want to increase or decrease the intensity (how far it travels and lights up the environment) for a custom rapier.
-
-After this, on the next line, change the model paths from "rapier_w_wh" to point to the same paths you created earlier. So for example, the line:
-
-SetupSwordModel("rapier_w_wh","rapier_h_wh","icn_es_wh");
-
-would become
-
-SetupSwordModel("rapier_w_aq","rapier_h_aq","icn_es_aq");
-
-The code should look similar to this:
-
-<...more lines...>
-else if (colour == 6) //white
-{
-	SetupSword(150,0.0,0.0);
-	SetupSwordModel("rapier_w_wh","rapier_h_wh","icn_es_wh");
-}
-else if (colour == 7) //aquamarine
-{
-	SetupSword(150,0.98,0.9);
-	SetupSwordModel("rapier_w_aq","rapier_h_aq","icn_es_aq");
-}
-else //black
-		{
-			//Remove Lighting
-<...more lines...>
-
-Then save the file.
-
-The new rapier should now be available to all future rapier spawns, although it may require a new game (not sure).
+If your rapier does not require a glow (similar to the black rapier), simply put false for the [distance, hue, saturation] information, similar to black in the table above.
