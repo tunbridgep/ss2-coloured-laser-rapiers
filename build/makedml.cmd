@@ -3,8 +3,6 @@
 call :make_features "%~dp0..\src" "%~dp0..\out"
 ::call :make_versions "%~dp0..\src" "%~dp0..\out"
 
-echo "<peasant voice>JOBS DONE!"
-
 EXIT /B
 
 ::FUNCTIONS
