@@ -13,35 +13,35 @@ Follow these steps to make a new rapier. For this example, we will make an aquam
 5. Create a new file Icn_es_aq.pcx inside the ObjIcon folder, based on one of the existing files.
 6. Open up sq_scripts/sargeLaserRapiers.nut and add the rapier to the table at the top. The table looks like this:
 
-static swords = [
+	static colours = [
 		
-		//colour,		[distance, hue, saturation],	[world model, hand model, icon]
-		//---------------------------------------------------------------------------------------------------------------------------
-		["blue",		[150,0.66,0.80],				false										],
-		["red",			[150,0.98,0.90],				["rapier_w_rd","rapier_h_rd","icn_es_rd"]	],
-		["green",		[150,0.40,0.90],				["rapier_w_gr","rapier_h_gr","icn_es_gr"]	],
-		["purple",		[150,0.80,0.60],				["rapier_w_pu","rapier_h_pu","icn_es_pu"]	],
-		["orange",		[150,0.05,0.60],				["rapier_w_or","rapier_h_or","icn_es_or"]	],
-		["yellow",		[150,0.20,0.60],				["rapier_w_ye","rapier_h_ye","icn_es_ye"]	],
-		["white",		[150,0.00,0.00],				["rapier_w_wh","rapier_h_wh","icn_es_wh"]	],
-		["black",		false,							["rapier_w_bl","rapier_h_bl","icn_es_bl"]	],
+		//colour,	chance,			[distance, hue, saturation],	[world model, hand model, icon]
+		//-----------------------------------------------------------------------------------------------------
+		["blue",    1.0,            [150,0.66,0.80],                false                                    ],
+		["red",     1.0,            [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","icn_es_rd"]],
+		["green",   1.0,            [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","icn_es_gr"]],
+		["purple",  1.0,            [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","icn_es_pu"]],
+		["orange",  1.0,            [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","icn_es_or"]],
+		["yellow",  1.0,            [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","icn_es_ye"]],
+		["white",   0.5,            [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","icn_es_wh"]],
+		["black",   0.5,            false,                          ["rapier_w_bl","rapier_h_bl","icn_es_bl"]],
 	];
 	
 To add a new rapier colour, add it to the table, for example
 
-static swords = [
+	static colours = [
 		
-		//colour,		[distance, hue, saturation],	[world model, hand model, icon]
-		//---------------------------------------------------------------------------------------------------------------------------
-		["blue",		[150,0.66,0.80],				false										],
-		["red",			[150,0.98,0.90],				["rapier_w_rd","rapier_h_rd","icn_es_rd"]	],
-		["green",		[150,0.40,0.90],				["rapier_w_gr","rapier_h_gr","icn_es_gr"]	],
-		["purple",		[150,0.80,0.60],				["rapier_w_pu","rapier_h_pu","icn_es_pu"]	],
-		["orange",		[150,0.05,0.60],				["rapier_w_or","rapier_h_or","icn_es_or"]	],
-		["yellow",		[150,0.20,0.60],				["rapier_w_ye","rapier_h_ye","icn_es_ye"]	],
-		["white",		[150,0.00,0.00],				["rapier_w_wh","rapier_h_wh","icn_es_wh"]	],
-		["black",		false,							["rapier_w_bl","rapier_h_bl","icn_es_bl"]	],
-		["aquamarine",	[150,0.55,0.70],				["rapier_w_aq","rapier_h_aq","icn_es_aq"]	],
+		//colour,	chance,			[distance, hue, saturation],	[world model, hand model, icon]
+		//-----------------------------------------------------------------------------------------------------
+		["blue",    1.0,            [150,0.66,0.80],                false                                    ],
+		["red",     1.0,            [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","icn_es_rd"]],
+		["green",   1.0,            [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","icn_es_gr"]],
+		["purple",  1.0,            [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","icn_es_pu"]],
+		["orange",  1.0,            [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","icn_es_or"]],
+		["yellow",  1.0,            [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","icn_es_ye"]],
+		["white",   0.5,            [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","icn_es_wh"]],
+		["black",   0.5,            false,                          ["rapier_w_bl","rapier_h_bl","icn_es_bl"]],
+		["aqua",    1.0,            [150,0.55,0.60],                ["rapier_w_aq","rapier_h_aq","icn_es_aq"]],
 	];
 
 The new rapier should now be available to all future rapier spawns.

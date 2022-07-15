@@ -4,36 +4,53 @@ In order to do this, the squirrel script will need to be edited. The edit is qui
 
 The top of the squirrel file contains a table like this:
 
-static swords = [
+	static colours = [
 		
-		//colour,		[distance, hue, saturation],	[world model, hand model, icon]
-		//---------------------------------------------------------------------------------------------------------------------------
-		["blue",		[150,0.66,0.80],				false										],
-		["red",			[150,0.98,0.90],				["rapier_w_rd","rapier_h_rd","icn_es_rd"]	],
-		["green",		[150,0.40,0.90],				["rapier_w_gr","rapier_h_gr","icn_es_gr"]	],
-		["purple",		[150,0.80,0.60],				["rapier_w_pu","rapier_h_pu","icn_es_pu"]	],
-		["orange",		[150,0.05,0.60],				["rapier_w_or","rapier_h_or","icn_es_or"]	],
-		["yellow",		[150,0.20,0.60],				["rapier_w_ye","rapier_h_ye","icn_es_ye"]	],
-		["white",		[150,0.00,0.00],				["rapier_w_wh","rapier_h_wh","icn_es_wh"]	],
-		["black",		false,							["rapier_w_bl","rapier_h_bl","icn_es_bl"]	],
+		//colour,	chance,			[distance, hue, saturation],	[world model, hand model, icon]
+		//-----------------------------------------------------------------------------------------------------
+		["blue",    1.0,            [150,0.66,0.80],                false                                    ],
+		["red",     1.0,            [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","icn_es_rd"]],
+		["green",   1.0,            [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","icn_es_gr"]],
+		["purple",  1.0,            [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","icn_es_pu"]],
+		["orange",  1.0,            [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","icn_es_or"]],
+		["yellow",  1.0,            [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","icn_es_ye"]],
+		["white",   0.5,            [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","icn_es_wh"]],
+		["black",   0.5,            false,                          ["rapier_w_bl","rapier_h_bl","icn_es_bl"]],
 	];
 	
-In order to remove a specific rapier, simply delete the line associated with it
-
-Alternatively, if you wish to only disable a specific rapier, adding // to the beginning of it's line will prevent it from spawning.
+If you wish to disable a specific rapier, adding // to the beginning of it's line will prevent it from spawning.
 
 For example, to disable orange rapiers, do this:
 
-static swords = [
+	static colours = [
 		
-		//colour,		[distance, hue, saturation],	[world model, hand model, icon]
-		//---------------------------------------------------------------------------------------------------------------------------
-		["blue",		[150,0.66,0.80],				false										],
-		["red",			[150,0.98,0.90],				["rapier_w_rd","rapier_h_rd","icn_es_rd"]	],
-		["green",		[150,0.40,0.90],				["rapier_w_gr","rapier_h_gr","icn_es_gr"]	],
-		["purple",		[150,0.80,0.60],				["rapier_w_pu","rapier_h_pu","icn_es_pu"]	],
-		//["orange",		[150,0.05,0.60],				["rapier_w_or","rapier_h_or","icn_es_or"]	],
-		["yellow",		[150,0.20,0.60],				["rapier_w_ye","rapier_h_ye","icn_es_ye"]	],
-		["white",		[150,0.00,0.00],				["rapier_w_wh","rapier_h_wh","icn_es_wh"]	],
-		["black",		false,							["rapier_w_bl","rapier_h_bl","icn_es_bl"]	],
+		//colour,	chance,			[distance, hue, saturation],	[world model, hand model, icon]
+		//-----------------------------------------------------------------------------------------------------
+		["blue",    1.0,            [150,0.66,0.80],                false                                    ],
+		["red",     1.0,            [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","icn_es_rd"]],
+		["green",   1.0,            [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","icn_es_gr"]],
+		["purple",  1.0,            [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","icn_es_pu"]],
+		//["orange",  1.0,            [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","icn_es_or"]],
+		["yellow",  1.0,            [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","icn_es_ye"]],
+		["white",   0.5,            [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","icn_es_wh"]],
+		["black",   0.5,            false,                          ["rapier_w_bl","rapier_h_bl","icn_es_bl"]],
+	];
+	
+Alternatively, the chances of a specific variant spawning can also be changed by modifying the chance value.
+Chance values are relative to all other chance values, so a value of 2.0 will make a rapier twice as likely to spawn as rapiers with a 1.0 chance value.
+
+For instance, to make purple rapiers appear twice as often, edit it's chance value like so
+
+	static colours = [
+		
+		//colour,	chance,			[distance, hue, saturation],	[world model, hand model, icon]
+		//-----------------------------------------------------------------------------------------------------
+		["blue",    1.0,            [150,0.66,0.80],                false                                    ],
+		["red",     1.0,            [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","icn_es_rd"]],
+		["green",   1.0,            [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","icn_es_gr"]],
+		["purple",  2.0,            [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","icn_es_pu"]],
+		["orange",  1.0,            [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","icn_es_or"]],
+		["yellow",  1.0,            [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","icn_es_ye"]],
+		["white",   0.5,            [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","icn_es_wh"]],
+		["black",   0.5,            false,                          ["rapier_w_bl","rapier_h_bl","icn_es_bl"]],
 	];

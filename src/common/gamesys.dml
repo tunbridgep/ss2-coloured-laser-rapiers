@@ -10,7 +10,7 @@
 ObjProp -24 "Scripts"
 {
 	"Script 0" sargeLaserRapier
-	"Don't inherit" false
+	"Don't inherit" TRUE
 }
 
 //Remove the light. It will be re-added by script
