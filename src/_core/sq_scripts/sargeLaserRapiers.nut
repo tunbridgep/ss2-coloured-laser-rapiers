@@ -132,6 +132,8 @@ class sargeLaserRapier extends SqRootScript
 			index = GetRapierIndexBasedOnChanceRoll(roll);
 		}
 		
+		index = 6;
+		
 		local name = colours[index][0];
 		print ("Rolled colour " + index + " (" + name +")");
 		
