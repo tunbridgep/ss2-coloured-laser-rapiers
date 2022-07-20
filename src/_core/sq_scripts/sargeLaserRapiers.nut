@@ -3,35 +3,35 @@
 class sargeLaserRapier extends SqRootScript
 {
 
+	//Set this to an index of the below table (0-7) to force assassins to use that colour for their rapier
+	static assassinForceColor = -1;
+
 	//Adding and Removing rapier colours is described in detail in docs/choosing_specific_rapiers.txt and docs/making_new_rapiers.txt
 	//READ THOSE FIRST unless you absolutely know what you're doing!!!
 	
 	//The chance system basically works relative to every other rapier. Chance values are effectively as if X of each rapier was placed into a bucket
 	//and then drawn from it. So if a rapier has a chance value of 2.0, and there are 8 total rapier variants, and all the others have a chance value of 1.0,
 	//then that particular rapier has a 2 in 9 chance of being selected, all the others have a 1 in 9 chance.
-	
 	static colours = [
 		
-		//colour,	chance,			[distance, hue, saturation],	[world model, hand model, icon]
+		//colour,	chance,			[distance, hue, saturation],	[world model, hand model, assassin model, icon]
 		//-----------------------------------------------------------------------------------------------------
 		["blue",    1.0,            [150,0.66,0.80],                false                                    ],
-		["red",     1.0,            [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","icn_es_rd"]],
-		["green",   1.0,            [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","icn_es_gr"]],
-		["purple",  1.0,            [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","icn_es_pu"]],
-		["orange",  1.0,            [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","icn_es_or"]],
-		["yellow",  1.0,            [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","icn_es_ye"]],
-		["white",   0.5,            [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","icn_es_wh"]],
-		["black",   0.5,            false,                          ["rapier_w_bl","rapier_h_bl","icn_es_bl"]],
+		["red",     1.0,            [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","rr_rd","icn_es_rd"]],
+		["green",   1.0,            [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","rr_gn","icn_es_gr"]],
+		["purple",  1.0,            [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","rr_pu","icn_es_pu"]],
+		["orange",  1.0,            [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","rr_or","icn_es_or"]],
+		["yellow",  1.0,            [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","rr_ye","icn_es_ye"]],
+		["white",   0.5,            [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","rr_wh","icn_es_wh"]],
+		["black",   0.5,            false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
 	];
-
-	function OnBeginScript()
+	
+	function OnCreate()
 	{
-		if (!GetData("Setup"))
-		{
-			print ("replacing sword properties");
-			SetData("Setup",TRUE);
-			RollNewRapierColour();
-		}
+		print ("OnCreate");
+		print ("replacing sword properties");
+		SetData("Setup",TRUE);
+		RollNewRapierColour();
 	}
 	
 	//Calculates a total chance value based on the combined chance mods of every rapier
@@ -74,6 +74,18 @@ class sargeLaserRapier extends SqRootScript
 		//something screwed up - just return the default rapier
 		return 0;
 	}
+
+	function IsAssassinRapier()
+	{
+		//Shitty hardcoded garbage
+		return ShockGame.GetArchetypeName(self) == "Rapier Attach";
+	}
+
+	function SetupAssassinModel(assassinModel)
+	{
+		SetProperty("ModelName",assassinModel);	
+		print ("Setting assassin rapier model to " + assassinModel);
+	}
 	
 	function SetupSwordModel(world,hand,icon)
 	{
@@ -95,31 +107,53 @@ class sargeLaserRapier extends SqRootScript
 		SetProperty("AnimLight","millisecs to dim",1000);
 		SetProperty("AnimLight","Dynamic Light",true);
 	}
+	
+	//This seems to be needed for some reason when it comes to the black rapier on assassins
+	function RemoveSwordLight()
+	{
+		SetProperty("SelfLit",0);
+		SetProperty("SelfLitRad",0);
+	}
 
 	function RollNewRapierColour()
 	{
-		local total_chance = GetTotalChance();
-		local roll = Data.RandFlt0to1() * total_chance;
-		
-		local selected = GetRapierIndexBasedOnChanceRoll(roll);
-		local name = colours[selected][0];
-		
-		print ("Rolled colour " + selected + " (" + name +")");
-			
-		if (colours[selected][2] != false && colours[selected][2].len() == 3)
+		RemoveSwordLight();
+	
+		local index;
+		local assassin = IsAssassinRapier();
+		if (assassin && assassinForceColor > -1 && assassinForceColor <= 7)
 		{
-			local intensity = colours[selected][2][0];
-			local hue = colours[selected][2][1];
-			local saturation = colours[selected][2][2];
+			index = assassinForceColor;
+		}
+		else
+		{
+			local total_chance = GetTotalChance();
+			local roll = Data.RandFlt0to1() * total_chance;
+			index = GetRapierIndexBasedOnChanceRoll(roll);
+		}
+		
+		local name = colours[index][0];
+		print ("Rolled colour " + index + " (" + name +")");
+		
+		if (colours[index][2] != false && colours[index][2].len() == 3)
+		{
+			local intensity = colours[index][2][0];
+			local hue = colours[index][2][1];
+			local saturation = colours[index][2][2];
 			SetupSwordLights(intensity,hue,saturation);
 		}
 		
-		if (colours[selected][3] != false && colours[selected][3].len() == 3)
+		if (colours[index][3] != false && colours[index][3].len() == 4)
 		{
-			local world = colours[selected][3][0];
-			local hand = colours[selected][3][1];
-			local icon = colours[selected][3][2];
-			SetupSwordModel(world,hand,icon);
+			local world = colours[index][3][0];
+			local hand = colours[index][3][1];
+			local assassinModel = colours[index][3][2];	
+			local icon = colours[index][3][3];
+					
+			if (assassin)
+				SetupAssassinModel(assassinModel);
+			else
+				SetupSwordModel(world,hand,icon);
 		}
 	}
 }
