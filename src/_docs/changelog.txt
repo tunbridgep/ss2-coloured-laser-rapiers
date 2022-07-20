@@ -1,0 +1,13 @@
+v1.02:
+- Fixed extremely stupid bug introduced in v1.01 involving wrong rapier colours when transitioning levels.
+- Updated assassin rapier textures to ensure consistency with the standard ones, including the overly-bright blue texture (caused by GIF palette issues in the Secmod model).
+    - Assassin rapiers should now look identical to their standard counterparts
+    - Load after Secmod and Scary Monsters, as they both include the same blue assassin rapier model
+
+v1.01:
+- Added support for the upcoming v1.03 version of Scary Monsters Assassin Rapiers Addon
+    - Assassins will no longer hold rapiers incorrectly
+    - Due to the way Scary Monsters works, the assassins generate a new Rapier every time they attack. This means the colours continually change.
+        - Added a new setting to combat this, assassinForceColor at the top of the squirrel file.
+    - Includes a missing texture bluegrad.gif, which fixes the purple Jorge texture on blue assassin rapiers.
+- Fixed issues with level loading corrupting rapier glows (fixed for real in v1.02)
