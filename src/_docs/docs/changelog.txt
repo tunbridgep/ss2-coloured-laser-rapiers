@@ -1,3 +1,5 @@
+Laser Rapiers All-in-One Changelog
+
 v1.02:
 - Slightly brightened the White variant of the texture as it was too dark around the edges, making the rapier look like a thin white stick (world model only).
 - Fixed extremely stupid bug introduced in v1.01 involving wrong rapier colours when transitioning levels.
