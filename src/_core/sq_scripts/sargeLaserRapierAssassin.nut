@@ -10,31 +10,26 @@ class sargeLaserRapierAssassin extends sargeColourBase
 		}
 	}
 	
-	function OnStartAttackMelee()
+	function UpdateAttachedRapiers(linktype)
 	{
 		local colour = GetData("Colour");
 		
-		//print ("StartAttack");
-		foreach (link in Link.GetAll(linkkind("CreatureAttachment"), self, 0))
+		foreach (link in Link.GetAll(linkkind(linktype), self, 0))
 		{
 			local sl = sLink(link);			
 			SendMessage(sl.dest, "SetColour", colour, true);			
 		}
-		foreach (link in Link.GetAll(linkkind("~CreatureAttachment"), self, 0))
-		{			
-			SendMessage(sl.dest, "SetColour", colour, true);
-		}
+	}
+	
+	function OnStartAttackMelee()
+	{
+		//print ("StartAttack");
+		UpdateAttachedRapiers("CreatureAttachment");
 	}
 	
 	function OnContainer()
 	{
-		local colour = GetData("Colour");
-	
 		//print ("OnContainer");
-		foreach (link in Link.GetAll(linkkind("Contains"), self, 0))
-		{
-			local sl = sLink(link);
-			SendMessage(sl.dest, "SetColour", colour, true);
-		}
+		UpdateAttachedRapiers("Contains");
 	}
 }
