@@ -1,5 +1,9 @@
 Laser Rapiers All-in-One Changelog
 
+v1.03:
+- Minor changes to the code for legibility, added more documentation comments in the squirrel file for people who wish to tweak the mod.
+- Added Secmod assassin support.
+
 v1.02:
 - Slightly brightened the White variant of the texture as it was too dark around the edges, making the rapier look like a thin white stick (world model only).
 - Fixed extremely stupid bug introduced in v1.01 involving wrong rapier colours when transitioning levels.

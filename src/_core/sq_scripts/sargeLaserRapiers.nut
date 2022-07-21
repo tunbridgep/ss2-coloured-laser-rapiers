@@ -1,9 +1,20 @@
 // ================================================================================
-// Script for forcing re-adding the SelfLit, SelfLit and AnimLight properties
+// Script for randomly rolling and applying rapier colours (via model changes).
 class sargeLaserRapier extends SqRootScript
 {
+	//This sets the radius of the glow for rapiers.
+	static glowRadius = 12;
 
-	//Set this to an index of the below table (0-7) to force assassins to use that colour for their rapier
+	//Due to how Secmod and the Scary Monsters Assassin Rapier Addons work, cyborg assassins
+	//will have a different rapier colour for each attack, since a new rapier is created and
+	//destroyed for every melee attack, resulting in constant colour switching between attacks.
+	//To prevent this, you can force assassins to always use a certain rapier colour, which will
+	//reduce variety but add consistency.
+	//Set this to an index of the below table (0-7) to force assassins to use that colour for their rapiers.
+	//For instance, to use red rapiers, set the value to 1 (blue is at index 0, followed by red at index 1).
+	//Set this to -1 to disable the feature, which will allow assassins to use any colour (the default setting).
+	//Setting this to a value outside the valid table range will disable this feature and allow assassins to use any colour (the default behaviour).
+	//The black rapiers (7) look particularly good on Assassins.
 	static assassinForceColor = -1;
 
 	//Adding and Removing rapier colours is described in detail in docs/choosing_specific_rapiers.txt and docs/making_new_rapiers.txt
@@ -12,11 +23,20 @@ class sargeLaserRapier extends SqRootScript
 	//The chance system basically works relative to every other rapier. Chance values are effectively as if X of each rapier was placed into a bucket
 	//and then drawn from it. So if a rapier has a chance value of 2.0, and there are 8 total rapier variants, and all the others have a chance value of 1.0,
 	//then that particular rapier has a 2 in 9 chance of being selected, all the others have a 1 in 9 chance.
+	
+	//For hue and saturation values, please see
+	//https://www.ttlg.com/forums/showthread.php?t=68416&p=798219&viewfull=1#post798219
+	//"I had to figure this out to do my RGB FM. I'm going from memory so don't sue me if they're wrong.
+	//Hue: Red = 0.98 Blue = 0.65 Green = 0.45 Yellow = 0.25 (I think)
+	//Saturation: 0.0 = White 1.0 = Full Color Go in between for darker and lighter shades
+	//(Actually, I tend to think of Saturation as a control of the color's richness... low values are washed out and high values are deeper and richer.)"
+	
+	
 	static colours = [
 		
-		//colour,	chance,			[distance, hue, saturation],	[world model, hand model, assassin model, icon]
-		//-----------------------------------------------------------------------------------------------------
-		["blue",    1.0,            [150,0.66,0.80],                false                                    ],
+		//colour,   chance,         [distance, hue, saturation],    [world model, hand model, assassin model, icon]
+		//------------------------------------------------------------------------------------------------------------
+		["blue",    1.0,            [150,0.66,0.80],                false                                            ],
 		["red",     1.0,            [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","rr_rd","icn_es_rd"]],
 		["green",   1.0,            [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","rr_gn","icn_es_gr"]],
 		["purple",  1.0,            [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","rr_pu","icn_es_pu"]],
@@ -30,7 +50,6 @@ class sargeLaserRapier extends SqRootScript
 	{
 		print ("OnCreate");
 		print ("replacing sword properties");
-		SetData("Setup",TRUE);
 		RollNewRapierColour();
 	}
 	
@@ -78,7 +97,10 @@ class sargeLaserRapier extends SqRootScript
 	function IsAssassinRapier()
 	{
 		//Shitty hardcoded garbage
-		return ShockGame.GetArchetypeName(self) == "Rapier Attach";
+		print (ShockGame.GetArchetypeName(self));
+		
+		return ShockGame.GetArchetypeName(self) == "Rapier Attach" //Scary Monsters support
+				|| ShockGame.GetArchetypeName(self) == "arapier";  //Secmod support
 	}
 
 	function SetupAssassinModel(assassinModel)
@@ -97,7 +119,7 @@ class sargeLaserRapier extends SqRootScript
 	function SetupSwordLights(distance,hue,saturation)
 	{
 		SetProperty("SelfLit",distance);
-		SetProperty("SelfLitRad",12);
+		SetProperty("SelfLitRad",glowRadius);
 		SetProperty("LightColor","hue",hue);
 		SetProperty("LightColor","saturation",saturation);
 		SetProperty("AnimLight","Mode",1); //pulse slowly between min and max
@@ -108,7 +130,8 @@ class sargeLaserRapier extends SqRootScript
 		SetProperty("AnimLight","Dynamic Light",true);
 	}
 	
-	//This seems to be needed for some reason when it comes to the black rapier on assassins
+	//Assassins automatically add a blue light to swords, which gets overridden normally,
+	//but not on black rapiers. So we need to make sure it's removed.
 	function RemoveSwordLight()
 	{
 		SetProperty("SelfLit",0);
@@ -117,11 +140,9 @@ class sargeLaserRapier extends SqRootScript
 
 	function RollNewRapierColour()
 	{
-		RemoveSwordLight();
-	
 		local index;
 		local assassin = IsAssassinRapier();
-		if (assassin && assassinForceColor > -1 && assassinForceColor <= 7)
+		if (assassin && assassinForceColor > -1 && assassinForceColor < colours.len())
 		{
 			index = assassinForceColor;
 		}
@@ -133,7 +154,7 @@ class sargeLaserRapier extends SqRootScript
 		}
 		
 		local name = colours[index][0];
-		print ("Rolled colour " + index + " (" + name +")");
+		print ("Selected rapier colour " + index + " (" + name +")");
 		
 		if (colours[index][2] != false && colours[index][2].len() == 3)
 		{
@@ -141,6 +162,10 @@ class sargeLaserRapier extends SqRootScript
 			local hue = colours[index][2][1];
 			local saturation = colours[index][2][2];
 			SetupSwordLights(intensity,hue,saturation);
+		}
+		else
+		{
+			RemoveSwordLight();
 		}
 		
 		if (colours[index][3] != false && colours[index][3].len() == 4)

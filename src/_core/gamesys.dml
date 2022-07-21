@@ -1,21 +1,6 @@
-//https://www.ttlg.com/forums/showthread.php?t=68416&p=798219&viewfull=1#post798219
-//I had to figure this out to do my RGB FM. I'm going from memory so don't sue me if they're wrong.
-
-//Hue: Red = 0.98 Blue = 0.65 Green = 0.45 Yellow = 0.25 (I think)
-//Saturation: 0.0 = White 1.0 = Full Color Go in between for darker and lighter shades
-
-//(Actually, I tend to think of Saturation as a control of the color's richness... low values are washed out and high values are deeper and richer.)
-
 //Add our AIO script to swords
 ObjProp -24 "Scripts"
 {
 	"Script 0" sargeLaserRapier
 	"Don't inherit" TRUE
-}
-
-//Remove the light. It will be re-added by script
-//This is to allow the black rapier to not glow
-ObjProp -24 "SelfLit"
-{
-    "" 0
 }
