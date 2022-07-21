@@ -28,7 +28,7 @@ class sargeColourBase extends SqRootScript
 		["orange",  1.0,      1.0,             [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","rr_or","icn_es_or"]],
 		["yellow",  1.0,      1.0,             [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","rr_ye","icn_es_ye"]],
 		["white",   0.5,      0.5,             [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","rr_wh","icn_es_wh"]],
-		["black",   0.5,      2.0,             false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
+		["black",   0.5,      1.5,             false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
 	];
 
 

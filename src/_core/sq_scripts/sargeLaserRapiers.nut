@@ -6,27 +6,14 @@ class sargeLaserRapier extends sargeColourBase
 	static glowRadius = 12;
 	
 	colour = null;
-		
-	isAssassin = null;
-		
+	
 	function OnCreate()
 	{
 		print ("replacing sword properties");
 		
-		isAssassin = IsAssassinRapier();
-		
 		colour = RollForColour();
 		
 		ApplyRapierModifications();
-	}
-
-	//If we are the special "assassin rapier" archetype, we are an assassin rapier
-	function IsAssassinRapier()
-	{
-		local archetype = ShockGame.GetArchetypeName(self);
-
-		return archetype == "Rapier Attach" //Scary Monsters support
-			|| archetype == "arapier";  	//Secmod support
 	}
 	
 	//Gets a colour for an assassin
@@ -72,8 +59,10 @@ class sargeLaserRapier extends sargeColourBase
 	//but not on black rapiers. So we need to make sure it's removed.
 	function RemoveSwordLight()
 	{
-		SetProperty("SelfLit",0);
-		SetProperty("SelfLitRad",0);
+		Property.Remove(self, "SelfLit");
+		Property.Remove(self, "SelfLitRad");
+		Property.Remove(self, "AnimLight");
+		Property.Remove(self, "LightColor");
 	}
 
 	function ApplyRapierModifications()
