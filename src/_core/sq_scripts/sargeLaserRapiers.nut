@@ -46,11 +46,19 @@ class sargeLaserRapier extends SqRootScript
 		["black",   0.5,            false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
 	];
 	
+	//===========================================================================================================================================
+	
+	previouslyContained = null;
+	
 	function OnCreate()
 	{
-		print ("OnCreate");
+		previouslyContained = false;
 		print ("replacing sword properties");
-		RollNewRapierColour();
+		
+		//print ("----------------------------------------------------------" + Link.AnyExist("CreatureAttachment",self));
+		//print ("----------------------------------------------------------" + Link.AnyExist("~CreatureAttachment",self));
+		
+		SelectRapierColour();
 	}
 	
 	//Calculates a total chance value based on the combined chance mods of every rapier
@@ -94,13 +102,31 @@ class sargeLaserRapier extends SqRootScript
 		return 0;
 	}
 
+	//If we are the special "assassin rapier" archetype, we are an assassin rapier
 	function IsAssassinRapier()
 	{
-		//Shitty hardcoded garbage
-		print (ShockGame.GetArchetypeName(self));
+		local archetype = ShockGame.GetArchetypeName(self);
+
+		return archetype == "Rapier Attach" //Scary Monsters support
+			|| archetype == "arapier";  	//Secmod support
+	}
+	
+	//Assassin inventory detection.
+	//We need to make sure this only ever runs once, and only checks the first inventory it ever goes into
+	//Because certain mods (like RSD) let you move items into containers/corpses
+	//This is a bit hacky, but I couldn't find a better way to do is, since the ~Contains flags aren't set on create;
+	function OnContained()
+	{
+		if (previouslyContained || assassinForceColor < 0 || assassinForceColor >= colours.len())
+			return;
 		
-		return ShockGame.GetArchetypeName(self) == "Rapier Attach" //Scary Monsters support
-				|| ShockGame.GetArchetypeName(self) == "arapier";  //Secmod support
+		local archetype = ShockGame.GetArchetypeName(message().container);
+		
+		if (archetype == "Assassin" || archetype == "Red Assassin")
+		{
+			SelectRapierColour(true);
+		}		
+		previouslyContained = true;
 	}
 
 	function SetupAssassinModel(assassinModel)
@@ -138,11 +164,11 @@ class sargeLaserRapier extends SqRootScript
 		SetProperty("SelfLitRad",0);
 	}
 
-	function RollNewRapierColour()
+	function SelectRapierColour(inAssassinInventory = false)
 	{
 		local index;
 		local assassin = IsAssassinRapier();
-		if (assassin && assassinForceColor > -1 && assassinForceColor < colours.len())
+		if ((inAssassinInventory || assassin) && assassinForceColor > -1 && assassinForceColor < colours.len())
 		{
 			index = assassinForceColor;
 		}
