@@ -16,14 +16,6 @@ class sargeLaserRapier extends sargeColourBase
 		ApplyRapierModifications();
 	}
 	
-	//Gets a colour for an assassin
-	function RollForAssassin()
-	{
-		if (assassinForceColor < 0 || assassinForceColor >= colours.len())
-			return RollForColour();
-		else return assassinForceColor;		
-	}
-
 	function SetupAssassinModel()
 	{
 		if (colours[colour][RAPIER_MODEL] != false)
@@ -55,8 +47,7 @@ class sargeLaserRapier extends sargeColourBase
 		SetProperty("AnimLight","Dynamic Light",true);
 	}
 	
-	//Assassins automatically add a blue light to swords, which gets overridden normally,
-	//but not on black rapiers. So we need to make sure it's removed.
+	//Sword lights need to be removed when re-rolling
 	function RemoveSwordLight()
 	{
 		Property.Remove(self, "SelfLit");
