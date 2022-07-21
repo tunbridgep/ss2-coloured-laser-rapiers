@@ -11,39 +11,49 @@ Follow these steps to make a new rapier. For this example, we will make an aquam
 6. Open up the new RAPIER_W_AQ.BIN file you created in a text editor
 4. Replace all instances of RED1.PCX with AQA1.PCX, and all instances of RED2.PCX with AQA2.PCX. It is critically important that NO other parts of the file be edited. Changing even a single character will corrupt the model
 5. Create a new file Icn_es_aq.pcx inside the ObjIcon folder, based on one of the existing files.
-6. Open up sq_scripts/sargeLaserRapiers.nut and add the rapier to the table at the top. The table looks like this:
+
+To add rapiers for assassins, the following additional steps are required:
+
+6. In the Obj folder, make a copy of RR_RD.BIN called RR_AQ.BIN
+7. In the Obj/Txt16 folder, make a copy of RED_GRAD.PCX called AQU_GRAD.PCX
+8. Open up the new RR_AQ.BIN file you created in a text editor
+9. Replace all instances of RED_GRAD.PCX with AQU_GRAD.PCX. It is critically important that NO other parts of the file be edited. Changing even a single character will corrupt the model
+
+Once all steps are completed, the new rapier needs to be added to the rapier table.
+
+Open up sq_scripts/sargeColourBase.nut and add the rapier to the table at the top. The table looks like this:
 
 	static colours = [
 		
-		//colour,	chance,			[distance, hue, saturation],	[world model, hand model, icon]
-		//-----------------------------------------------------------------------------------------------------
-		["blue",    1.0,            [150,0.66,0.80],                false                                    ],
-		["red",     1.0,            [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","icn_es_rd"]],
-		["green",   1.0,            [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","icn_es_gr"]],
-		["purple",  1.0,            [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","icn_es_pu"]],
-		["orange",  1.0,            [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","icn_es_or"]],
-		["yellow",  1.0,            [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","icn_es_ye"]],
-		["white",   0.5,            [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","icn_es_wh"]],
-		["black",   0.5,            false,                          ["rapier_w_bl","rapier_h_bl","icn_es_bl"]],
+		//colour,   chance,   assassin chance, [distance, hue, saturation],    [world model, hand model, assassin model, icon]
+		//--------------------------------------------------------------------------------------------------------------------
+		["blue",    1.0,      1.0,             [150,0.66,0.80],                ["rapier_w","rapier_h","rr","icn_es"]],
+		["red",     1.0,      1.0,             [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","rr_rd","icn_es_rd"]],
+		["green",   1.0,      1.0,             [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","rr_gn","icn_es_gr"]],
+		["purple",  1.0,      1.0,             [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","rr_pu","icn_es_pu"]],
+		["orange",  1.0,      1.0,             [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","rr_or","icn_es_or"]],
+		["yellow",  1.0,      1.0,             [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","rr_ye","icn_es_ye"]],
+		["white",   0.5,      0.5,             [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","rr_wh","icn_es_wh"]],
+		["black",   0.5,      2.0,             false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
 	];
 	
 To add a new rapier colour, add it to the table, for example
 
 	static colours = [
 		
-		//colour,	chance,			[distance, hue, saturation],	[world model, hand model, icon]
-		//-----------------------------------------------------------------------------------------------------
-		["blue",    1.0,            [150,0.66,0.80],                false                                    ],
-		["red",     1.0,            [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","icn_es_rd"]],
-		["green",   1.0,            [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","icn_es_gr"]],
-		["purple",  1.0,            [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","icn_es_pu"]],
-		["orange",  1.0,            [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","icn_es_or"]],
-		["yellow",  1.0,            [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","icn_es_ye"]],
-		["white",   0.5,            [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","icn_es_wh"]],
-		["black",   0.5,            false,                          ["rapier_w_bl","rapier_h_bl","icn_es_bl"]],
-		["aqua",    1.0,            [150,0.55,0.60],                ["rapier_w_aq","rapier_h_aq","icn_es_aq"]],
+		//colour,   chance,   assassin chance, [distance, hue, saturation],    [world model, hand model, assassin model, icon]
+		//--------------------------------------------------------------------------------------------------------------------
+		["blue",    1.0,      1.0,             [150,0.66,0.80],                ["rapier_w","rapier_h","rr","icn_es"]],
+		["red",     1.0,      1.0,             [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","rr_rd","icn_es_rd"]],
+		["green",   1.0,      1.0,             [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","rr_gn","icn_es_gr"]],
+		["purple",  1.0,      1.0,             [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","rr_pu","icn_es_pu"]],
+		["orange",  1.0,      1.0,             [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","rr_or","icn_es_or"]],
+		["yellow",  1.0,      1.0,             [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","rr_ye","icn_es_ye"]],
+		["white",   0.5,      0.5,             [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","rr_wh","icn_es_wh"]],
+		["black",   0.5,      2.0,             false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
+		["aqua",    1.0,      1.0,             [150,0.45,0.70],                ["rapier_w_aq","rapier_h_aq","rr_aq","icn_es_aq"]],
 	];
 
-The new rapier should now be available to all future rapier spawns.
+The new rapier should now be available to all future rapier spawns and assassins.
 
 If your rapier does not require a glow (similar to the black rapier), simply put false for the [distance, hue, saturation] information, similar to black in the table above.

@@ -1,5 +1,10 @@
 Laser Rapiers All-in-One Changelog
 
+v1.04 BETA:
+- Completely changed the way assassin rapiers work. It should now be perfectly consistent
+    - Assassins will now roll a rapier colour once, and apply it to every rapier they generate, including loot
+    - Assassin rapier rarity can now be set the same way that regular rapier rarity can be. This can be used to limit them to certain rapier colours.
+
 v1.03:
 - Minor changes to the code for legibility, added more documentation comments in the squirrel file for people who wish to tweak the mod.
 - Added Secmod assassin support.

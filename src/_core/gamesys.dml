@@ -4,3 +4,16 @@ ObjProp -24 "Scripts"
 	"Script 0" sargeLaserRapier
 	"Don't inherit" TRUE
 }
+
+//Create a metaprop for allowing assassins to control rapier colours through messages
+CreateArch "Misc Metaprops" "Rapier Assassin Controller"
+{
+	+ObjProp "Scripts"
+	{
+		"Script 0" sargeLaserRapierAssassin
+		"Don't inherit" FALSE
+	}
+}
+
+//Attach to Assassins
++MetaProp -1541 "Rapier Assassin Controller"
