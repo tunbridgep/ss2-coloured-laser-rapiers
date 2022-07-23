@@ -1,5 +1,12 @@
 Laser Rapiers All-in-One Changelog
 
+v1.04 BETA 3:
+- Added DML edits to recreate all in-map rapiers in the vanilla game and SCP. Not Secmod compatible currently.
+
+v1.04 BETA 2:
+- Updated the Assassin Rapier models to use the same textures as the standard ones, rather than an identical copy.
+    - The Blue variant now uses the standard BLUE.PCX and TURQ.PCX files from vanilla
+
 v1.04 BETA:
 - Completely changed the way assassin rapiers work. It should now be perfectly consistent
     - Assassins will now roll a rapier colour once, and apply it to every rapier they generate, including loot
