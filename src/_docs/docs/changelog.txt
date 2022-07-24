@@ -1,5 +1,10 @@
 Laser Rapiers All-in-One Changelog
 
+v1.04 BETA 4:
+- Removed Scripted Object replacements to ensure compatibility with both Secmod and SS2-RSD, since the latter replaces and changes objects via script, including rapiers.
+    - Took a different approach to ensure rapiers in the maps are replaced.
+- Fixed borked Black assassin rapier model
+
 v1.04 BETA 3:
 - Added DML edits to recreate all in-map rapiers in the vanilla game and SCP. Not Secmod compatible currently.
 

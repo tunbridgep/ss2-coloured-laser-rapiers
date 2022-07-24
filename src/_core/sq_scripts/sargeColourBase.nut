@@ -78,7 +78,7 @@ class sargeColourBase extends SqRootScript
 			total_chance += value;
 		}
 			
-		print ("Total chance is " + total_chance);
+		//print ("Total chance is " + total_chance);
 		
 		return total_chance;
 	}
@@ -90,7 +90,7 @@ class sargeColourBase extends SqRootScript
 	{
 		local remaining_roll_value = roll;
 		
-		print ("initial roll value is " + roll);
+		//print ("initial roll value is " + roll);
 		
 		foreach(index, val in colours)
 		{
@@ -102,7 +102,7 @@ class sargeColourBase extends SqRootScript
 				return index;
 			else
 			{
-				print ("remaining roll value is " + remaining_roll_value + " (subtracted " + value + ") which is greater than 0, skipping " + val[RAPIER_NAME] + " rapier");
+				//print ("remaining roll value is " + remaining_roll_value + " (subtracted " + value + ") which is greater than 0, skipping " + val[RAPIER_NAME] + " rapier");
 			}
 		}
 		

@@ -1,9 +1,19 @@
 //Add our AIO script to swords
-ObjProp -24 "Scripts"
+//This is REMOVED IN THE SQUIRREL SCRIPT
+//So if changing this, you MUST also change sargeLaserRapiers.nut
++ObjProp -24 "Scripts"
 {
 	"Script 0" sargeLaserRapier
 	"Don't inherit" TRUE
 }
+
+
+//Remove the default glow that is there as part of SCP/Secmod/whatever
+-ObjProp -24 "SelfLit"
+-ObjProp -24 "SelfLitRad"
+-ObjProp -24 "AnimLight"
+-ObjProp -24 "LightColor"
+
 
 //Create a metaprop for allowing assassins to control rapier colours through messages
 CreateArch "Misc Metaprops" "Rapier Assassin Controller"
