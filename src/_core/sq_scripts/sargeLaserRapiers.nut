@@ -5,38 +5,24 @@ class sargeLaserRapier extends sargeColourBase
 	//This sets the radius of the glow for rapiers.
 	static glowRadius = 12;
 	
-	static DELAY_TIME = 0.5;
-	
 	colour = null;
 	
 	function OnBeginScript()
 	{
-		print ("replacing sword properties");
-		
-		colour = RollForColour();
-		
+		//Colour is stored in Door Close Sound, since we can't use GetData/SetData
+		local colourProp = Property.Get(self,"DoorCloseSound");
+		if (!colourProp)
+		{	
+			print ("replacing sword properties");
+			colour = RollForColour();
+			Property.SetSimple(self,"DoorCloseSound",colour);
+		}
+		else
+		{
+			print ("found existing sword properties: " + colourProp);
+			colour = colourProp;
+		}
 		ApplyRapierModifications();
-		
-		//We cannot use GetData/SetData
-		//Because they don't save for inventory items or weapons for some reason
-		//And if we use OnCreate it doesn't affect Rapiers in the maps,
-		//So we have to replace them via DML, which has implications for mods like SS2-RSD
-		//And others which replace or change weapon properties via script
-		//So we are using this dirty hack instead
-		//We also need to delay a small amount of time to allow Assassins to change their newly created rapiers
-		SetOneShotTimer("RemovalTimer",DELAY_TIME);
-	}
-	
-	//Filthy, Dirty, Evil, Bad, Disgusting Hack!!!!!
-	function RemoveScript()
-	{
-		//This should correspond EXACTLY to the Script Slot used in gamesys.dml!
-		Property.Set(self,"Scripts","Script 0","");
-	}
-	
-	function OnTimer()
-	{
-		RemoveScript();
 	}
 	
 	function SetupAssassinModel()
@@ -87,8 +73,6 @@ class sargeLaserRapier extends sargeColourBase
 		//fallback
 		//if (colour == null)
 		//	colour = 0;
-		//RemoveSwordLight();
-		
 	
 		if (colours[colour][RAPIER_GLOW] != false && colours[colour][RAPIER_GLOW].len() == 3)
 		{
