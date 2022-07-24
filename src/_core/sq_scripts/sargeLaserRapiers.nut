@@ -5,8 +5,6 @@ class sargeLaserRapier extends sargeColourBase
 	//This sets the radius of the glow for rapiers.
 	static glowRadius = 12;
 	
-	colour = null;
-	
 	function OnBeginScript()
 	{
 		//Colour is stored in Door Close Sound, since we can't use GetData/SetData
@@ -14,18 +12,17 @@ class sargeLaserRapier extends sargeColourBase
 		if (!colourProp)
 		{	
 			print ("replacing sword properties");
-			colour = RollForColour();
+			local colour = RollForColour();
 			Property.SetSimple(self,"DoorCloseSound",colour);
+			ApplyRapierModifications(colour);
 		}
 		else
 		{
 			print ("found existing sword properties: " + colourProp);
-			colour = colourProp;
 		}
-		ApplyRapierModifications();
 	}
 	
-	function SetupAssassinModel()
+	function SetupAssassinModel(colour)
 	{
 		if (colours[colour][RAPIER_MODEL] != false)
 		{
@@ -68,12 +65,8 @@ class sargeLaserRapier extends sargeColourBase
 		Property.Remove(self, "LightColor");
 	}
 
-	function ApplyRapierModifications()
+	function ApplyRapierModifications(colour)
 	{
-		//fallback
-		//if (colour == null)
-		//	colour = 0;
-	
 		if (colours[colour][RAPIER_GLOW] != false && colours[colour][RAPIER_GLOW].len() == 3)
 		{
 			local intensity = colours[colour][RAPIER_GLOW][INTENSITY];
@@ -98,14 +91,14 @@ class sargeLaserRapier extends sargeColourBase
 	function OnSetColour()
 	{
 		//print ("Message works!");
-		colour = message().data;
+		local colour = message().data;
 		
 		print ("received colour: " + message().data);
 		
-		ApplyRapierModifications();
+		ApplyRapierModifications(colour);
 		
 		local isAssassin = message().data2;
 		if (isAssassin)
-			SetupAssassinModel();
+			SetupAssassinModel(colour);
 	}
 }
