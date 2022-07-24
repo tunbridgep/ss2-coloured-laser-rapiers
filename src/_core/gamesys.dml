@@ -9,6 +9,8 @@
 
 
 //Remove the default glow that is there as part of SCP/Secmod/whatever
+//This needs to be done otherwise we can't remove them (they are inherited from parent) from script
+//Which results in black rapiers having a blue glow
 -ObjProp -24 "SelfLit"
 -ObjProp -24 "SelfLitRad"
 -ObjProp -24 "AnimLight"
