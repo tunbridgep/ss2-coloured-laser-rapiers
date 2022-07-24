@@ -1,6 +1,4 @@
 //Add our AIO script to swords
-//This is REMOVED IN THE SQUIRREL SCRIPT
-//So if changing this, you MUST also change sargeLaserRapiers.nut
 +ObjProp -24 "Scripts"
 {
 	"Script 0" sargeLaserRapier
