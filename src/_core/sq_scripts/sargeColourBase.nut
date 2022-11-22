@@ -59,7 +59,7 @@ class sargeColourBase extends SqRootScript
 		local index = GetColourIndexBasedOnChanceRoll(roll,useAssassinChance);
 		
 		local name = colours[index][RAPIER_NAME];
-		print ("Selected rapier colour " + index + " (" + name +")");
+		//print ("Selected rapier colour " + index + " (" + name +")");
 		
 		return index;
 	}
@@ -70,7 +70,7 @@ class sargeColourBase extends SqRootScript
 	function GetTotalChance(useAssassinChance)
 	{	
 		local total_chance = 0;
-		print ("Calculating total chance....");
+		//print ("Calculating total chance....");
 		
 		foreach(val in colours)
 		{

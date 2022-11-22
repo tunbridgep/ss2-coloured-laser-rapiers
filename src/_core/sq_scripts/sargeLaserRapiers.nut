@@ -11,14 +11,14 @@ class sargeLaserRapier extends sargeColourBase
 		local colourProp = Property.Get(self,"DoorCloseSound");
 		if (!colourProp)
 		{	
-			print ("replacing sword properties");
 			local colour = RollForColour();
+			print ("Rapier " + self + " changing colour to " + colour);
 			Property.SetSimple(self,"DoorCloseSound",colour);
 			ApplyRapierModifications(colour);
 		}
 		else
 		{
-			print ("found existing sword properties: " + colourProp);
+			//print ("found existing rapier properties: " + colourProp);
 		}
 	}
 	
@@ -34,7 +34,7 @@ class sargeLaserRapier extends sargeColourBase
 	
 	function SetupSwordModel(world,hand,icon)
 	{
-		print ("Setting Model...");
+		//print ("Setting Model...");
 		SetProperty("ModelName",world);
 		SetProperty("InvLimbModel",hand);
 		SetProperty("ObjIcon",icon);
@@ -42,7 +42,7 @@ class sargeLaserRapier extends sargeColourBase
 	
 	function SetupSwordLights(distance,hue,saturation)
 	{
-		print ("Setting lights...");
+		//print ("Setting lights...");
 		SetProperty("SelfLit",distance);
 		SetProperty("SelfLitRad",glowRadius);
 		SetProperty("LightColor","hue",hue);
@@ -58,7 +58,7 @@ class sargeLaserRapier extends sargeColourBase
 	//Sword lights need to be removed when re-rolling
 	function RemoveSwordLight()
 	{
-		print ("Removing lights...");
+		//print ("Removing lights...");
 		Property.Remove(self, "SelfLit");
 		Property.Remove(self, "SelfLitRad");
 		Property.Remove(self, "AnimLight");
@@ -93,7 +93,7 @@ class sargeLaserRapier extends sargeColourBase
 		//print ("Message works!");
 		local colour = message().data;
 		
-		print ("received colour: " + message().data);
+		//print ("received colour: " + message().data);
 		
 		ApplyRapierModifications(colour);
 		
