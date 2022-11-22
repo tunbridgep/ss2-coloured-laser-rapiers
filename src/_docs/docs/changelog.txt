@@ -1,4 +1,10 @@
-Laser Rapiers All-in-One Changelog
+Coloured Laser Rapiers All-in-One Changelog
+
+v1.04:
+- No longer in beta! After thorough testing by multiple people, this is now ready to go!
+- Removed print statements that were part of the beta version. This should pollute ss2.log a lot less.
+- Slightly modified purple rapier glow to fit the rapier colour better.
+- Glow brightness values are now controlled via constants at the top of the script, for easier editing by others.
 
 v1.04 BETA 4:
 - Removed Scripted Object replacements to ensure compatibility with both Secmod and SS2-RSD, since the latter replaces and changes objects via script, including rapiers.

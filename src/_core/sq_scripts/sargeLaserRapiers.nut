@@ -12,7 +12,7 @@ class sargeLaserRapier extends sargeColourBase
 		if (!colourProp)
 		{	
 			local colour = RollForColour();
-			print ("Rapier " + self + " changing colour to " + colour);
+			print ("Rapier " + self + " changing colour to " + colours[colour][RAPIER_NAME]);
 			Property.SetSimple(self,"DoorCloseSound",colour);
 			ApplyRapierModifications(colour);
 		}
@@ -48,10 +48,10 @@ class sargeLaserRapier extends sargeColourBase
 		SetProperty("LightColor","hue",hue);
 		SetProperty("LightColor","saturation",saturation);
 		SetProperty("AnimLight","Mode",1); //pulse slowly between min and max
-		SetProperty("AnimLight","min brightness",320);
-		SetProperty("AnimLight","max brightness",400);
-		SetProperty("AnimLight","millisecs to brighten",1400);
-		SetProperty("AnimLight","millisecs to dim",1000);
+		SetProperty("AnimLight","min brightness",MIN_BRIGHTNESS);
+		SetProperty("AnimLight","max brightness",MAX_BRIGHTNESS);
+		SetProperty("AnimLight","millisecs to brighten",TIME_TO_BRIGHT);
+		SetProperty("AnimLight","millisecs to dim",TIME_TO_DIM);
 		SetProperty("AnimLight","Dynamic Light",true);
 	}
 	

@@ -24,12 +24,19 @@ class sargeColourBase extends SqRootScript
 		["blue",    1.0,      1.0,             [150,0.66,0.80],                ["rapier_w","rapier_h","rr","icn_es"]],
 		["red",     1.0,      1.0,             [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","rr_rd","icn_es_rd"]],
 		["green",   1.0,      1.0,             [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","rr_gn","icn_es_gr"]],
-		["purple",  1.0,      1.0,             [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","rr_pu","icn_es_pu"]],
+		["purple",  1.0,      1.0,             [150,0.80,0.80],                ["rapier_w_pu","rapier_h_pu","rr_pu","icn_es_pu"]],
 		["orange",  1.0,      1.0,             [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","rr_or","icn_es_or"]],
 		["yellow",  1.0,      1.0,             [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","rr_ye","icn_es_ye"]],
 		["white",   0.5,      0.5,             [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","rr_wh","icn_es_wh"]],
 		["black",   0.5,      1.5,             false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
 	];
+
+	//You can adjust these to your liking
+	static MAX_BRIGHTNESS = 400;
+	static MIN_BRIGHTNESS = 320;
+
+	static TIME_TO_BRIGHT = 1400;
+	static TIME_TO_DIM = 1000;
 
 
 	//	DO NOT EDIT ANYTHING BELOW THIS LINE

@@ -72,3 +72,15 @@ static colours = [
 		["white",   0.5,      0.0,             [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","rr_wh","icn_es_wh"]],
 		["black",   0.5,      0.0,             false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
 	];
+	
+Rapier brightness settings can also be adjusted using the lines after the table.
+
+The default values are:
+
+static MAX_BRIGHTNESS = 400;
+static MIN_BRIGHTNESS = 320;
+
+static TIME_TO_BRIGHT = 1400;
+static TIME_TO_DIM = 1000;
+
+MIN and MAX brightness determine how bright the glows will be, while the time to bright and time to dim determine the pulse frequency of the glow.
