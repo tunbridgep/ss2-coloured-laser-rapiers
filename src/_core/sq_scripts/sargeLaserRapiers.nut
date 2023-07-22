@@ -111,28 +111,22 @@ class sargeLaserRapier extends sargeColourBase
 			SetupAssassinModel(colour);
 	}
     
+    function OnHackSuccess()
+    {
+        SetNewColour(true);
+
+        //Re-equip because the viewmodel doesn't update if we don't
+        if (ShockGame.Equipped(ePlayerEquip.kEquipWeapon) == self)
+            ShockGame.Equip(ePlayerEquip.kEquipWeapon,self);
+    }
+
     function OnFrobInvEnd()
     {
-
-        local naniteObj = ShockGame.Equipped(ePlayerEquip.kEquipFakeNanites);
-        local naniteCount = Property.Get(naniteObj,"StackCount");
-        local weapon = ShockGame.Equipped(ePlayerEquip.kEquipWeapon);
-        local cost = 40;
-
-        if (naniteCount >= cost)
-        {
-            SetNewColour(true);
-            Property.SetSimple(naniteObj,"StackCount",naniteCount - cost);
-            ShockGame.AddText("Spent " + cost + " Nanites to modify rapier","Player");
-        
-            //Need to re-equip otherwise the colour doesn't update
-            if (weapon == self)
-                ShockGame.Equip(ePlayerEquip.kEquipWeapon,self);
-        }
-        else
-        {
-            ShockGame.AddText("Insufficient Nanites to modify Rapier","Player");
-        }
+        ShockGame.OverlayChangeObj(kOverlayHackComp,kOverlayModeOn,self);
+        //ShockGame.OverlayChangeObj(kOverlayLook,kOverlayModeOn,self); //Broken
+        //ShockGame.OverlayChange(kOverlayLook,kOverlayModeOn);
+        ShockGame.OverlayChangeObj(kOverlayHRMPlug,kOverlayModeOn,self);
+        return;
     }
 
 }
