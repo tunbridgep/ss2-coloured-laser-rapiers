@@ -26,7 +26,7 @@ class sargeLaserRapier extends sargeColourBase
     		oldColor = Property.Get(self,"DoorCloseSound").tointeger();
         
         local colour = RollForColour(false,oldColor);
-		print ("Rapier " + self + " changing colour to " + colours[colour][RAPIER_NAME]);
+		//print ("Rapier " + self + " changing colour to " + colours[colour][RAPIER_NAME]);
 		Property.SetSimple(self,"DoorCloseSound",colour);
 		ApplyRapierModifications(colour);
     }
@@ -37,7 +37,7 @@ class sargeLaserRapier extends sargeColourBase
 		{
 			local assassinModel = colours[colour][RAPIER_MODEL][ASSASSIN];
 			SetProperty("ModelName",assassinModel);
-			print ("Setting assassin rapier model to " + assassinModel + " based on colour " + colour);
+			//print ("Setting assassin rapier model to " + assassinModel + " based on colour " + colour);
 		}
 	}
 	
