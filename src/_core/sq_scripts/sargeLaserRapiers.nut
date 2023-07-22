@@ -4,23 +4,32 @@ class sargeLaserRapier extends sargeColourBase
 {
 	//This sets the radius of the glow for rapiers.
 	static glowRadius = 12;
-	
+
 	function OnBeginScript()
 	{
 		//Colour is stored in Door Close Sound, since we can't use GetData/SetData
 		local colourProp = Property.Get(self,"DoorCloseSound");
 		if (!colourProp)
 		{	
-			local colour = RollForColour();
-			print ("Rapier " + self + " changing colour to " + colours[colour][RAPIER_NAME]);
-			Property.SetSimple(self,"DoorCloseSound",colour);
-			ApplyRapierModifications(colour);
+            SetNewColour(false);
 		}
 		else
 		{
 			//print ("found existing rapier properties: " + colourProp);
 		}
 	}
+
+    function SetNewColour(keepOld)
+    {
+        local oldColor = -1;
+        if (keepOld)
+    		oldColor = Property.Get(self,"DoorCloseSound").tointeger();
+        
+        local colour = RollForColour(false,oldColor);
+		print ("Rapier " + self + " changing colour to " + colours[colour][RAPIER_NAME]);
+		Property.SetSimple(self,"DoorCloseSound",colour);
+		ApplyRapierModifications(colour);
+    }
 	
 	function SetupAssassinModel(colour)
 	{
@@ -101,4 +110,29 @@ class sargeLaserRapier extends sargeColourBase
 		if (isAssassin)
 			SetupAssassinModel(colour);
 	}
+    
+    function OnFrobInvEnd()
+    {
+
+        local naniteObj = ShockGame.Equipped(ePlayerEquip.kEquipFakeNanites);
+        local naniteCount = Property.Get(naniteObj,"StackCount");
+        local weapon = ShockGame.Equipped(ePlayerEquip.kEquipWeapon);
+        local cost = 40;
+
+        if (weapon == self)
+        {
+            ShockGame.AddText("Cannot modify equipped rapier","Player");
+        }
+        else if (weapon != self && naniteCount >= cost)
+        {
+            SetNewColour(true);
+            Property.SetSimple(naniteObj,"StackCount",naniteCount - cost);
+            ShockGame.AddText("Spent " + cost + " Nanites to modify rapier","Player");
+        }
+        else
+        {
+            ShockGame.AddText("Insufficient Nanites to modify Rapier","Player");
+        }
+    }
+
 }

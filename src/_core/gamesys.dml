@@ -27,3 +27,6 @@ CreateArch "Misc Metaprops" "Rapier Assassin Controller"
 
 //Attach to Assassins
 +MetaProp -1541 "Rapier Assassin Controller"
+
+//Let the user know they can modify their laser rapier by right clicking
++ObjProp -24 "InvCursor" = "weapon: "Use to change settings""

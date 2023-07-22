@@ -58,19 +58,28 @@ class sargeColourBase extends SqRootScript
 	static ICON = 3;
 
 	//Gets a new colour
-	function RollForColour(useAssassinChance = false)
+	function RollForColour(useAssassinChance = false, oldColour = -1)
 	{
 		local total_chance = GetTotalChance(useAssassinChance);
+
 		local roll = Data.RandFlt0to1() * total_chance;
-		
 		local index = GetColourIndexBasedOnChanceRoll(roll,useAssassinChance);
+        local rolls = 1;
+
+        while (index == oldColour && rolls < 30)
+        {
+
+		    roll = Data.RandFlt0to1() * total_chance;
+    		index = GetColourIndexBasedOnChanceRoll(roll,useAssassinChance);
+            rolls++;
+        }
 		
 		local name = colours[index][RAPIER_NAME];
 		//print ("Selected rapier colour " + index + " (" + name +")");
 		
 		return index;
 	}
-	
+
 	//Calculates a total chance value based on the combined chance mods of every rapier
 	//Rolls should be done against this
 	//So if the total chance values of all rapiers are 6.0, we would roll between 0.0 and 6.0
