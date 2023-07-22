@@ -119,15 +119,15 @@ class sargeLaserRapier extends sargeColourBase
         local weapon = ShockGame.Equipped(ePlayerEquip.kEquipWeapon);
         local cost = 40;
 
-        if (weapon == self)
-        {
-            ShockGame.AddText("Cannot modify equipped rapier","Player");
-        }
-        else if (weapon != self && naniteCount >= cost)
+        if (naniteCount >= cost)
         {
             SetNewColour(true);
             Property.SetSimple(naniteObj,"StackCount",naniteCount - cost);
             ShockGame.AddText("Spent " + cost + " Nanites to modify rapier","Player");
+        
+            //Need to re-equip otherwise the colour doesn't update
+            if (weapon == self)
+                ShockGame.Equip(ePlayerEquip.kEquipWeapon,self);
         }
         else
         {
