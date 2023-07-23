@@ -5,7 +5,6 @@
 	"Don't inherit" TRUE
 }
 
-
 //Remove the default glow that is there as part of SCP/Secmod/whatever
 //This needs to be done otherwise we can't remove them (they are inherited from parent) from script
 //Which results in black rapiers having a blue glow
@@ -30,23 +29,3 @@ CreateArch "Misc Metaprops" "Rapier Assassin Controller"
 
 //Let the user know they can hack their laser rapier by right clicking
 +ObjProp -24 "InvCursor" = "weapon: "Use to change settings""
-
-//Set hack skill requirements
-+ObjProp -24 "ReqTechDesc"
-{
-	"Hack" 4
-	"Repair" 0
-	"Modify" 0
-	"Maintain" 0
-	"Research" 0
-}
-
-+ObjProp -24 "HackDiff"
-{
-	"Success %" -10
-	"Critical Fail %" 0
-	"Cost" 10.00
-}
-
-//Hack Text
-+ObjProp -24 "HackText" = "Weapon: "Re-Initialises Visual Diffraction Matrix"

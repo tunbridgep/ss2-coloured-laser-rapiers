@@ -1,5 +1,11 @@
 Coloured Laser Rapiers All-in-One Changelog
 
+v1.05 BETA:
+- Now allows rerolling!
+- Now split into 2 versions: Hackable and Cyclable
+	- Hackable version requires hacking the rapier in order to reroll, requires Hack 4, 10 nanites per attempt
+	- Cycle version simply cycles through the available colours on right click
+
 v1.04:
 - No longer in beta! After thorough testing by multiple people, this is now ready to go!
 - Removed print statements that were part of the beta version. This should pollute ss2.log a lot less.

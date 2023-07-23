@@ -80,6 +80,15 @@ class sargeColourBase extends SqRootScript
 		return index;
 	}
 
+    function GetNextColour(previousColor)
+    {
+        previousColor++;
+        if (previousColor >= colours.len())
+            previousColor = 0;
+
+        return previousColor;
+    }
+
 	//Calculates a total chance value based on the combined chance mods of every rapier
 	//Rolls should be done against this
 	//So if the total chance values of all rapiers are 6.0, we would roll between 0.0 and 6.0

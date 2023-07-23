@@ -1,6 +1,6 @@
 // ================================================================================
 // Script for randomly rolling and applying rapier colours (via model changes).
-class sargeLaserRapier extends sargeColourBase
+class sargeLaserRapierBase extends sargeColourBase
 {
 	//This sets the radius of the glow for rapiers.
 	static glowRadius = 12;
@@ -27,7 +27,6 @@ class sargeLaserRapier extends sargeColourBase
         
         local colour = RollForColour(false,oldColor);
 		//print ("Rapier " + self + " changing colour to " + colours[colour][RAPIER_NAME]);
-		Property.SetSimple(self,"DoorCloseSound",colour);
 		ApplyRapierModifications(colour);
     }
 	
@@ -76,6 +75,7 @@ class sargeLaserRapier extends sargeColourBase
 
 	function ApplyRapierModifications(colour)
 	{
+		Property.SetSimple(self,"DoorCloseSound",colour);
 		if (colours[colour][RAPIER_GLOW] != false && colours[colour][RAPIER_GLOW].len() == 3)
 		{
 			local intensity = colours[colour][RAPIER_GLOW][INTENSITY];
@@ -110,23 +110,10 @@ class sargeLaserRapier extends sargeColourBase
 		if (isAssassin)
 			SetupAssassinModel(colour);
 	}
-    
-    function OnHackSuccess()
-    {
-        SetNewColour(true);
 
-        //Re-equip because the viewmodel doesn't update if we don't
+    function ReEquip()
+    {
         if (ShockGame.Equipped(ePlayerEquip.kEquipWeapon) == self)
             ShockGame.Equip(ePlayerEquip.kEquipWeapon,self);
     }
-
-    function OnFrobInvEnd()
-    {
-        ShockGame.OverlayChangeObj(kOverlayHackComp,kOverlayModeOn,self);
-        //ShockGame.OverlayChangeObj(kOverlayLook,kOverlayModeOn,self); //Broken
-        //ShockGame.OverlayChange(kOverlayLook,kOverlayModeOn);
-        ShockGame.OverlayChangeObj(kOverlayHRMPlug,kOverlayModeOn,self);
-        return;
-    }
-
 }
