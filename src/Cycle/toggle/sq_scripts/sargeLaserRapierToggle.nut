@@ -6,7 +6,7 @@ class sargeLaserRapier extends sargeLaserRapierBase
     	local oldColor = Property.Get(self,"DoorCloseSound").tointeger();
         local colour = GetNextColour(oldColor);
         ApplyRapierModifications(colour);
-        ShockGame.AddText("Reinitialising Visual Diffraction Matrix","Player");
+        ShockGame.AddText("Reinitialising Optical Diffraction Matrix","Player");
         ReEquip();
     }
 }

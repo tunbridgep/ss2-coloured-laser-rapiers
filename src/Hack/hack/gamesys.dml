@@ -10,10 +10,10 @@
 
 +ObjProp -24 "HackDiff"
 {
-	"Success %" -10
-	"Critical Fail %" 0
-	"Cost" 10.00
+	"Success %" -15
+	"Critical Fail %" 3
+	"Cost" 20.00
 }
 
 //Hack Text
-+ObjProp -24 "HackText" = "Weapon: "Reinitialises Visual Diffraction Matrix""
++ObjProp -24 "HackText" = "Weapon: "Reinitialises Optical Diffraction Matrix""
