@@ -57,9 +57,41 @@ class sargeColourBase extends SqRootScript
 	static ASSASSIN = 2;
 	static ICON = 3;
 
+    //Populate table based on config variables
+    function UpdateTableValues()
+    {
+		foreach(val in colours)
+		{
+            local chance_config_1 = "rapier_chance_" + val[RAPIER_NAME];
+            local chance_config_2 = "rapier_chance_assassin_" + val[RAPIER_NAME];
+                
+            local chance = float_ref();
+
+            if (Engine.ConfigIsDefined(chance_config_1))
+            {
+                Engine.ConfigGetFloat(chance_config_1, chance);
+                val[RAPIER_CHANCE] = chance.tofloat();
+
+                //print ("get chance config value: " + chance_config_1);
+                //print ("\tvalue " + chance);
+            }
+            
+            if (Engine.ConfigIsDefined(chance_config_2))
+            {
+                Engine.ConfigGetFloat(chance_config_2, chance);
+                val[RAPIER_CHANCE_ASSASSIN] = chance.tofloat();
+
+                //print ("get chance config value: " + chance_config_2);
+                //print ("\tvalue " + chance);
+            }
+		}
+    }
+
 	//Gets a new colour
 	function RollForColour(useAssassinChance = false, oldColour = -1)
 	{
+        UpdateTableValues();
+
 		local total_chance = GetTotalChance(useAssassinChance);
 
 		local roll = Data.RandFlt0to1() * total_chance;
@@ -68,7 +100,6 @@ class sargeColourBase extends SqRootScript
 
         while (index == oldColour && rolls < 30)
         {
-
 		    roll = Data.RandFlt0to1() * total_chance;
     		index = GetColourIndexBasedOnChanceRoll(roll,useAssassinChance);
             rolls++;
@@ -82,9 +113,16 @@ class sargeColourBase extends SqRootScript
 
     function GetNextColour(previousColor)
     {
-        previousColor++;
-        if (previousColor >= colours.len())
-            previousColor = 0;
+        local success = false;
+        local previousPrevious = previousColor;
+        do
+        {
+            previousColor++;
+            if (previousColor >= colours.len())
+                previousColor = 0;
+
+            success = colours[previousColor][RAPIER_CHANCE] > 0;
+        } while (previousPrevious != previousColor && !success)
 
         return previousColor;
     }

@@ -11,10 +11,10 @@ class sargeLaserRapier extends sargeLaserRapierBase
 
     function OnFrobInvEnd()
     {
+        UpdateTableValues();
         ShockGame.OverlayChangeObj(kOverlayHackComp,kOverlayModeOn,self);
         //ShockGame.OverlayChangeObj(kOverlayLook,kOverlayModeOn,self); //Broken
         //ShockGame.OverlayChange(kOverlayLook,kOverlayModeOn);
         ShockGame.OverlayChangeObj(kOverlayHRMPlug,kOverlayModeOn,self);
     }
-
 }
