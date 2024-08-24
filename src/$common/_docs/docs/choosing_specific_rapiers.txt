@@ -1,86 +1,23 @@
-In some cases, some rapier colours may be undesirable. A classic example is that you may want to get rid of black and white rapiers.
+In some cases, some rapier colours may be undesirable. A classic example is
+that you may want to get rid of black and white rapiers.
 
-In order to do this, the file sq_scripts/sargeColourBase.nut will need to be edited. The edit is quite simple and should only require a few lines of changes.
+In order to do this, please edit user.cfg in your basic system shock 2 folder,
+with numbers specifying a weight (0 disables a rapier colour). For example:
 
-The top of the squirrel file contains a table like this:
+rapier_chance_blue 1
+rapier_chance_red 1
+rapier_chance_green 1
+rapier_chance_purple 0
+rapier_chance_orange 0
+rapier_chance_yellow 0
+rapier_chance_white 0.5
+rapier_chance_black 0.5
 
-static colours = [
-		
-		//colour,   chance,   assassin chance, [distance, hue, saturation],    [world model, hand model, assassin model, icon]
-		//--------------------------------------------------------------------------------------------------------------------
-		["blue",    1.0,      1.0,             [150,0.66,0.80],                ["rapier_w","rapier_h","rr","icn_es"]],
-		["red",     1.0,      1.0,             [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","rr_rd","icn_es_rd"]],
-		["green",   1.0,      1.0,             [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","rr_gn","icn_es_gr"]],
-		["purple",  1.0,      1.0,             [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","rr_pu","icn_es_pu"]],
-		["orange",  1.0,      1.0,             [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","rr_or","icn_es_or"]],
-		["yellow",  1.0,      1.0,             [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","rr_ye","icn_es_ye"]],
-		["white",   0.5,      0.5,             [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","rr_wh","icn_es_wh"]],
-		["black",   0.5,      2.0,             false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
-	];
-	
-If you wish to disable a specific rapier, adding // to the beginning of it's line will prevent it from spawning.
-
-For example, to disable orange rapiers for both in-world spawned rapiers and assassin rapiers, do this:
-
-static colours = [
-		
-		//colour,   chance,   assassin chance, [distance, hue, saturation],    [world model, hand model, assassin model, icon]
-		//--------------------------------------------------------------------------------------------------------------------
-		["blue",    1.0,      1.0,             [150,0.66,0.80],                ["rapier_w","rapier_h","rr","icn_es"]],
-		["red",     1.0,      1.0,             [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","rr_rd","icn_es_rd"]],
-		["green",   1.0,      1.0,             [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","rr_gn","icn_es_gr"]],
-		["purple",  1.0,      1.0,             [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","rr_pu","icn_es_pu"]],
-		//["orange",  1.0,      1.0,             [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","rr_or","icn_es_or"]],
-		["yellow",  1.0,      1.0,             [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","rr_ye","icn_es_ye"]],
-		["white",   0.5,      0.5,             [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","rr_wh","icn_es_wh"]],
-		["black",   0.5,      2.0,             false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
-	];
-	
-Alternatively, the chances of a specific variant spawning can also be changed by modifying the chance value.
-Chance values are relative to all other chance values, so a value of 2.0 will make a rapier twice as likely to spawn as rapiers with a 1.0 chance value.
-
-For instance, to make purple rapiers appear twice as often, edit it's chance value like so
-
-static colours = [
-		
-		//colour,   chance,   assassin chance, [distance, hue, saturation],    [world model, hand model, assassin model, icon]
-		//--------------------------------------------------------------------------------------------------------------------
-		["blue",    1.0,      1.0,             [150,0.66,0.80],                ["rapier_w","rapier_h","rr","icn_es"]],
-		["red",     1.0,      1.0,             [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","rr_rd","icn_es_rd"]],
-		["green",   1.0,      1.0,             [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","rr_gn","icn_es_gr"]],
-		["purple",  2.0,      1.0,             [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","rr_pu","icn_es_pu"]],
-		["orange",  1.0,      1.0,             [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","rr_or","icn_es_or"]],
-		["yellow",  1.0,      1.0,             [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","rr_ye","icn_es_ye"]],
-		["white",   0.5,      0.5,             [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","rr_wh","icn_es_wh"]],
-		["black",   0.5,      2.0,             false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
-	];
-
-Additionally, the chance value for rapiers appearing on assassins (if using a mod that adds rapier assassins), edit the assassin chance field.
-
-For instance, to limit assassins to green and blue rapiers appear twice as often, set the other chance values to zero
-
-static colours = [
-		
-		//colour,   chance,   assassin chance, [distance, hue, saturation],    [world model, hand model, assassin model, icon]
-		//--------------------------------------------------------------------------------------------------------------------
-		["blue",    1.0,      1.0,             [150,0.66,0.80],                ["rapier_w","rapier_h","rr","icn_es"]],
-		["red",     1.0,      0.0,             [150,0.98,0.90],                ["rapier_w_rd","rapier_h_rd","rr_rd","icn_es_rd"]],
-		["green",   1.0,      1.0,             [150,0.40,0.90],                ["rapier_w_gr","rapier_h_gr","rr_gn","icn_es_gr"]],
-		["purple",  1.0,      0.0,             [150,0.80,0.60],                ["rapier_w_pu","rapier_h_pu","rr_pu","icn_es_pu"]],
-		["orange",  1.0,      0.0,             [150,0.05,0.60],                ["rapier_w_or","rapier_h_or","rr_or","icn_es_or"]],
-		["yellow",  1.0,      0.0,             [150,0.20,0.60],                ["rapier_w_ye","rapier_h_ye","rr_ye","icn_es_ye"]],
-		["white",   0.5,      0.0,             [150,0.00,0.00],                ["rapier_w_wh","rapier_h_wh","rr_wh","icn_es_wh"]],
-		["black",   0.5,      0.0,             false,                          ["rapier_w_bl","rapier_h_bl","rr_bl","icn_es_bl"]],
-	];
-	
-Rapier brightness settings can also be adjusted using the lines after the table.
-
-The default values are:
-
-static MAX_BRIGHTNESS = 400;
-static MIN_BRIGHTNESS = 320;
-
-static TIME_TO_BRIGHT = 1400;
-static TIME_TO_DIM = 1000;
-
-MIN and MAX brightness determine how bright the glows will be, while the time to bright and time to dim determine the pulse frequency of the glow.
+rapier_chance_assassin_blue 1
+rapier_chance_assassin_red 1
+rapier_chance_assassin_green 1
+rapier_chance_assassin_purple 0
+rapier_chance_assassin_orange 0
+rapier_chance_assassin_yellow 0
+rapier_chance_assassin_white 0
+rapier_chance_assassin_black 0

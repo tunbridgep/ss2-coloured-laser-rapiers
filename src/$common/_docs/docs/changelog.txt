@@ -1,6 +1,11 @@
 Coloured Laser Rapiers All-in-One Changelog
 
-v1.05 BETA:
+v1.06:
+- Values are now set using user.cfg, rather than by editing the squirrel file
+    - Updated the documentation as necessary
+- Fixed bug where the "Cycle" version was allowing cycling to colours which had been disabled (chance of zero)
+
+v1.05:
 - Now allows rerolling!
 - Now split into 2 versions: Hackable and Cyclable
 	- Hackable version requires hacking the rapier in order to reroll, requires Hack 4, 10 nanites per attempt
